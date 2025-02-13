@@ -1,0 +1,28 @@
+POST localhost:8080/movie
+Content-Type: application/json
+
+{
+  "title": "My neighbor Totoro",
+  "rating": 8,
+  "genre": "Fantasy"
+}
+###
+GET localhost:8080/movie
+Accept: application/json
+###
+GET localhost:8080/movie/9
+Accept: application/json
+###
+PUT localhost:8080/movie
+Content-Type: application/json
+Accept: application/json
+
+{
+  "id": 10,
+  "title": "Dungeons and Dragons: Honor among Thiefs",
+  "genre": "Fantasy",
+  "rating": 9
+}
+###
+DELETE localhost:8080/movie/9
+Accept: application/json

@@ -1,0 +1,132 @@
+openapi: 3.0.3
+info:
+  title: Movie Library - OpenAPI 3.0
+  description: |-
+    This is a Demo API for Movies
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+servers:
+  - url: "http://localhost"
+tags:
+  - name: movie
+    description: Everything related to the Movie API
+paths:
+  /movie:
+    get:
+      tags:
+        - movie
+      summary: Get all available Movies
+      operationId: getAllMovies
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Movie'
+        "400":
+          description: "BAD REQUEST"
+    post:
+      tags:
+        - movie
+      summary: Create a new Movie
+      operationId: createMovie
+      requestBody:
+        description: Create a Movie
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+      responses:
+        "201":
+          description: "CREATED"
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Movie'
+        "400":
+          description: "BAD REQUEST"
+    put:
+      tags:
+        - movie
+      summary: Update an existing movie by Id
+      operationId: updateMovie
+      requestBody:
+        description: Update a Movie
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Movie'
+        "400":
+          description: "BAD REQUEST"
+
+  /movie/{movieId}:
+    get:
+      tags:
+        - movie
+      summary: Get a Movie by ID
+      parameters:
+        - in: path
+          name: movieId
+          schema:
+            type: integer
+          required: true
+      operationId: getMovie
+      responses:
+        "200":
+          description: "OK"
+          content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/Movie'
+        "400":
+          description: "BAD REQUEST"
+    delete:
+      tags:
+        - movie
+      summary: Delete a Movie by ID
+      parameters:
+        - in: path
+          name: movieId
+          schema:
+            type: integer
+          required: true
+      operationId: deleteMovie
+      responses:
+        "204":
+          description: "DELETED"
+        "400":
+          description: "BAD REQUEST"
+
+components:
+  schemas:
+    Movie:
+      type: object
+      required:
+        - title
+        - genre
+        - rating
+      properties:
+        id:
+          type: "integer"
+          format: "int64"
+        title:
+          type: "string"
+        genre:
+          type: "string"
+        rating:
+          type: "integer"
+          format: "int64"
+          maximum: 10
+          minimum: 1
